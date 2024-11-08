@@ -1,0 +1,61 @@
+def create_parking_lot(capacity):
+    return {
+        "capacity": capacity,
+        "parked_vehicles": {}
+	}
+
+
+def park_vehicle(parking_lot, vehicle_number):
+    if len(parking_lot["parked_vehicles"]) < parking_lot["capacity"]:
+        if vehicle_number not in parking_lot["parked_vehicles"]:
+            slot_number = len(parking_lot["parked_vehicles"]) + 1
+            parking_lot["parked_vehicles"] [vehicle_number] = slot_number
+            print(f"Vehicle {vehicle_number} parked at slot {slot_number}.")
+        else:
+            print(f"Vehicle {vehicle_number} is already parked.")
+    else:
+        print("Parking lot is full.")
+
+def remove_vehicle(parking_lot, vehicle_number):
+    if vehicle_number in parking_lot["parked_vehicles"]:
+        slot_number = parking_lot["parked_vehicles"].pop(vehicle_number)
+        print(f"Vehicle {vehicle_number} removed from slot {slot_number}.")
+    else:
+        print(f"Vehicle {vehicle_number} not found in the parking lot.")
+
+def get_parked_vehicles(parking_lot):
+    if parking_lot["parked_vehicles"]:
+        print("Parked vehicles:")
+        for vehicle_number, slot_number in parking_lot["parked_vehicles"].items():
+            print(f"Slot {slot_number}: Vehicle {vehicle_number}")
+    else:
+        print("No vehicles parked.")
+
+def main():
+    capacity = int(input("Enter the capacity of the parking lot: "))
+    parking_lot = create_parking_lot(capacity)
+    
+    while True:
+        print("\nOptions:")
+        print("1. Park vehicle")
+        print("2. Remove vehicle")
+        print("3. Get parked vehicles")
+        print("4. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            vehicle_number = input("Enter vehicle number to park: ")
+            park_vehicle(parking_lot, vehicle_number)
+        elif choice == '2':
+            vehicle_number = input("Enter vehicle number to remove: ")
+            remove_vehicle(parking_lot, vehicle_number)
+        elif choice == '3':
+            get_parked_vehicles(parking_lot)
+        elif choice == '4':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
